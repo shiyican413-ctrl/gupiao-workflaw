@@ -593,70 +593,70 @@ web               前端页面
 
 ### 14.1 Workflow
 
-```text
-id
-name
-description
-market
-universe_config
-filter_config
-score_config
-risk_config
-schedule_config
-status
-created_at
-updated_at
-```
+| 字段 | 中文意思 |
+| --- | --- |
+| id | workflow 主键 ID |
+| name | workflow 名称 |
+| description | workflow 描述 |
+| market | 适用市场，当前固定为 A 股 |
+| universe_config | 股票池范围配置，例如沪深京市场、行业、市值、上市时间等 |
+| filter_config | 筛选条件配置 |
+| score_config | 评分因子和权重配置 |
+| risk_config | 风险过滤和风险扣分配置 |
+| schedule_config | 定时运行配置 |
+| status | workflow 状态，例如启用、停用、删除 |
+| created_at | 创建时间 |
+| updated_at | 更新时间 |
 
 ### 14.2 WorkflowRun
 
-```text
-id
-workflow_id
-run_time
-status
-stock_count
-duration_ms
-summary
-created_at
-```
+| 字段 | 中文意思 |
+| --- | --- |
+| id | 运行记录主键 ID |
+| workflow_id | 关联的 workflow ID |
+| run_time | 本次运行开始时间 |
+| status | 运行状态，例如运行中、成功、失败 |
+| stock_count | 本次运行产出的入选股票数量 |
+| duration_ms | 本次运行耗时，单位毫秒 |
+| summary | 本次运行摘要，例如入选数量、主要变化、异常信息 |
+| created_at | 记录创建时间 |
 
 ### 14.3 StockScore
 
-```text
-id
-run_id
-stock_code
-stock_name
-industry
-total_score
-growth_score
-quality_score
-valuation_score
-trend_score
-capital_score
-risk_score
-rank
-reasons
-risks
-created_at
-```
+| 字段 | 中文意思 |
+| --- | --- |
+| id | 股票评分记录主键 ID |
+| run_id | 关联的 workflow 运行记录 ID |
+| stock_code | 股票代码 |
+| stock_name | 股票名称 |
+| industry | 所属行业 |
+| total_score | 综合评分 |
+| growth_score | 成长性评分 |
+| quality_score | 盈利质量评分 |
+| valuation_score | 估值吸引力评分 |
+| trend_score | 趋势强度评分 |
+| capital_score | 资金关注度评分 |
+| risk_score | 风险评分或风险扣分 |
+| rank | 本次运行中的综合排名 |
+| reasons | 入选原因列表 |
+| risks | 风险提示列表 |
+| created_at | 记录创建时间 |
 
 ### 14.4 WatchlistItem
 
-```text
-id
-stock_code
-stock_name
-tags
-note
-added_from_run_id
-added_score
-current_score
-alert_config
-created_at
-updated_at
-```
+| 字段 | 中文意思 |
+| --- | --- |
+| id | 观察池记录主键 ID |
+| stock_code | 股票代码 |
+| stock_name | 股票名称 |
+| tags | 用户自定义标签 |
+| note | 用户备注 |
+| added_from_run_id | 加入观察池时来源的 workflow 运行记录 ID |
+| added_score | 加入观察池时的综合评分 |
+| current_score | 当前最新综合评分 |
+| alert_config | 提醒配置，例如评分变化、风险事件、价格异动等 |
+| created_at | 创建时间 |
+| updated_at | 更新时间 |
 
 ## 15. API 草案
 

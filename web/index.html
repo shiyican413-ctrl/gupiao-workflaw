@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>A股选股 Workflow</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-mark">A</span>
+        <div>
+          <strong>选股 Workflow</strong>
+          <small>A股 MVP 工作台</small>
+        </div>
+      </div>
+      <nav>
+        <a href="#dashboard" class="active">工作台</a>
+        <a href="#workflow">Workflow</a>
+        <a href="#results">结果</a>
+        <a href="#watchlist">观察池</a>
+      </nav>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <div>
+          <h1>A股选股工作台</h1>
+          <p>配置规则，运行多因子评分，生成候选股票池。</p>
+        </div>
+        <button id="runBtn" class="primary">运行 Workflow</button>
+      </header>
+
+      <section id="dashboard" class="section-grid">
+        <article class="metric">
+          <span>最新运行</span>
+          <strong id="latestRun">未运行</strong>
+        </article>
+        <article class="metric">
+          <span>候选股票</span>
+          <strong id="candidateCount">0</strong>
+        </article>
+        <article class="metric">
+          <span>平均评分</span>
+          <strong id="avgScore">0</strong>
+        </article>
+        <article class="metric">
+          <span>观察池</span>
+          <strong id="watchCount">0</strong>
+        </article>
+      </section>
+
+      <section id="workflow" class="panel">
+        <div class="panel-head">
+          <div>
+            <h2>Workflow 配置</h2>
+            <p>当前版本固定为 A 股，支持沪深京主要板块和行业筛选。</p>
+          </div>
+          <button id="saveBtn">保存配置</button>
+        </div>
+
+        <div class="form-grid">
+          <label>
+            名称
+            <input id="wfName" type="text" />
+          </label>
+          <label>
+            最小市值（亿元）
+            <input id="minMarketCap" type="number" min="0" step="50" />
+          </label>
+          <label>
+            最小上市年限
+            <input id="minListingYears" type="number" min="0" step="1" />
+          </label>
+          <label>
+            最小营收增长（%）
+            <input id="minRevenueGrowth" type="number" step="0.5" />
+          </label>
+          <label>
+            最小净利增长（%）
+            <input id="minProfitGrowth" type="number" step="0.5" />
+          </label>
+          <label>
+            最小 ROE（%）
+            <input id="minRoe" type="number" step="0.5" />
+          </label>
+          <label>
+            最大资产负债率（%）
+            <input id="maxDebtRatio" type="number" step="0.5" />
+          </label>
+          <label>
+            最大 PE
+            <input id="maxPe" type="number" step="0.5" />
+          </label>
+          <label>
+            最小趋势分
+            <input id="minTrend" type="number" min="0" max="100" step="1" />
+          </label>
+        </div>
+
+        <div class="boards">
+          <span>股票范围</span>
+          <label><input class="board" type="checkbox" value="沪市主板" /> 沪市主板</label>
+          <label><input class="board" type="checkbox" value="深市主板" /> 深市主板</label>
+          <label><input class="board" type="checkbox" value="创业板" /> 创业板</label>
+          <label><input class="board" type="checkbox" value="科创板" /> 科创板</label>
+        </div>
+      </section>
+
+      <section id="results" class="panel">
+        <div class="panel-head">
+          <div>
+            <h2>选股结果</h2>
+            <p id="runSummary">运行后展示候选股票、评分和入选原因。</p>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>排名</th>
+                <th>股票</th>
+                <th>行业</th>
+                <th>综合</th>
+                <th>成长</th>
+                <th>质量</th>
+                <th>估值</th>
+                <th>趋势</th>
+                <th>原因</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="resultsBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="watchlist" class="panel">
+        <div class="panel-head">
+          <div>
+            <h2>观察池</h2>
+            <p>把候选股票加入观察池，后续复盘和提醒都围绕这里展开。</p>
+          </div>
+        </div>
+        <div id="watchlistBody" class="watch-grid"></div>
+      </section>
+    </main>
+
+    <div id="toast" class="toast"></div>
+    <script src="/app.js"></script>
+  </body>
+</html>

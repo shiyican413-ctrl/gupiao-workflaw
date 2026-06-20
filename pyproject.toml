@@ -1,0 +1,24 @@
+[project]
+name = "stock-mcp-server"
+version = "0.1.0"
+description = "A股选股 MCP Server - 为 AI 提供股票数据查询和选股评分能力"
+requires-python = ">=3.12"
+dependencies = [
+    "fastmcp>=0.2.0",
+    "pydantic>=2.0",
+    "akshare>=1.13",
+    "efinance>=0.5",
+    "baostock>=0.8",
+    "requests>=2.31",
+    "diskcache>=5.6",
+]
+
+[project.scripts]
+stock-mcp = "mcp_server.__main__:main"
+
+[build-system]
+requires = ["setuptools>=75.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["mcp_server*"]
